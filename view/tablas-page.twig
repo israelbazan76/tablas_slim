@@ -1,0 +1,144 @@
+{% extends "base_template_bootstrap.html" %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+    .centrados {
+        text-align: center;
+        align-self: center;
+        font-size: 1vw;
+
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        /*display: grid;*/
+        place-content: center;
+        /*min-height: 100vh;*/
+        height: 100%;
+        background-color:#84ED32
+    }
+
+    #parent {
+        display: table;
+        width: 100%;
+    }
+
+    #form_tabla {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .form-center {
+        display: flex;
+        justify-content: center;
+    }
+
+    .main-container{
+        background-color:#bee5eb; 
+        height: 100%; 
+        /*width: 100%; 
+        height: auto; 
+        border-radius: 20px;*/
+    }
+
+</style>
+{% endblock %}
+
+{% block title %}Tablas de multiplicar{% endblock %}
+{% block content %}
+<div class="container-fluid main-container">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xm-1">
+            {% if errors %}
+            
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">&times;</span> </button>
+                {% for error in errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xm-10 form-center">
+            <!-- <h1>Tablas de multiplicar</h1> -->
+
+            <form class="form-inline" method="POST" action="" style="margin:auto;text-align: center;">
+                 <div class="form-group">
+                    <label for="number">Tabla del</label>&nbsp;:&nbsp;
+                    <input class="form-control mr-sm-2 mb-2 mb-sm-0" id="number" name="number" required type="text" value="{{num}}">
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-primary mt-2 mt-sm-0" id="submit" name="submit" type="submit" value="Ir">
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xm-1"></div>
+    </div>
+    <div class="row">
+
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xm-1"></div>
+        <div class="col-lg-10  col-md-10 col-sm-10 col-xm-10 centrados">
+            {% if start > 10 %}
+            <a href="/{{ num }}/{{start -10}}" class="fa fa-arrow-circle-up fa-2x"
+                data-toggle="tooltip" data-placement="bottom" title="retroceder">
+            </a>
+            {% else %}
+            <a href="/{{ num }}/1" class="fa fa-arrow-circle-up fa-2x"
+                data-toggle="tooltip" data-placement="bottom" title="retroceder">
+            </a>
+
+            {% endif %}
+
+
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xm-1"></div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-1 col-md-1 col-sm-1  col-xm-1 centrados">
+            {% if num >= 1 %}
+            {% if num > cols %}
+            <a href="/{{ num  - cols}}/{{start}}" class="fa fa-arrow-circle-left fa-2x"
+                data-toggle="tooltip" data-placement="right" title="anterior">
+            </a>
+            {% endif %}
+            {% if num <= cols %} <a href="/1/{{start}}"
+                class="fa fa-arrow-circle-left fa-2x" data-toggle="tooltip" data-placement="right" title="anterior">
+                </a>
+                {% endif %}
+                {% endif %}
+        </div>
+        {% for n in range(0,cols-1) %}
+        <div class="col-lg-2 col-md-2 col-sm-2  col-xm-2 centrados tabla">
+            <ul class="list-group">
+                {% for i in range(start,start + 10 -1) %}
+                <li class="list-group-item{% if n == 0 %} active{% endif %}">{{num+n}} * {{i}} = {{(num+n)*i}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+        <div class="col-lg-1  col-md-1 col-sm-1 col-xm-1 centrados">
+            <a href="/{{ num + cols}}/{{start}}" class="fa fa-arrow-circle-right fa-2x"
+                data-toggle="tooltip" data-placement="left" title="siguiente">
+            </a>
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="col-lg-1 col-md-1 col-sm-1  col-xm-1"></div>
+        <div class="col-lg-10 col-md-10  col-sm-10 col-xm-10 centrados">
+            <a href="/{{ num }}/{{start + 10 }}" class="fa fa-arrow-circle-down fa-2x"
+                data-toggle="tooltip" data-placement="top" title="avanzar">
+            </a>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xm-1"></div>
+
+
+    </div>
+</div>
+{% endblock %}
