@@ -8,6 +8,7 @@ use Slim\Handlers\Strategies\RequestHandler;
 
 require __DIR__ . '/../vendor/autoload.php';
 
+
 define('APP_ENV', $_ENV['APP_ENV'] ?? $_SERVER['APP_ENV'] ?? 'DEVELOPMENT');
 $settings = (require __DIR__ . '/../config/settings.php')(APP_ENV);
 

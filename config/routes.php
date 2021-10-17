@@ -7,6 +7,7 @@ use Slim\Psr7\Response;
 use App\Handler\HomePageHandler;
 use App\Handler\TablasPageHandler;
 
+
 return function (App $app) {
     //$app->get('/[{name}]', HomePageHandler::class)->setName('home');
     // $app->get('/', \App\Action\TablasAction::class)->setName('tablas');
